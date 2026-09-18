@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produtos | FlaStore Controle</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="container barra-topo">
+        <a class="marca" th:href="@{/}">FlaStore Controle</a>
+        <nav class="menu" aria-label="Menu principal">
+          <a th:href="@{/}">Início</a>
+          <a th:href="@{/produtos}">Produtos</a>
+          <a th:href="@{/produtos/novo}">Cadastro</a>
+          <a th:href="@{/produtos/001}">Detalhes</a>
+          <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="titulo-pagina">
+        <p>Listagem principal</p>
+        <h1>Produtos cadastrados</h1>
+        <span id="contadorProdutos" th:text="|${#lists.size(produtos)} produto(s) encontrado(s)|">8 produtos encontrados</span>
+      </section>
+
+      <section class="bloco">
+<p class="mensagem visivel" th:if="${mensagem}" th:text="${mensagem}" role="status"></p>
+        <label class="campo-busca" for="filtroProduto">
+          Buscar produto
+          <input
+            id="filtroProduto"
+            type="search"
+            placeholder="Digite nome, categoria ou situação"
+          />
+        </label>
+
+        <div class="tabela-container">
+          <table id="tabelaProdutos">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Produto</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Situação</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="produto : ${produtos}">
+                <td th:text="${produto.codigo}"></td>
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.categoria}"></td>
+                <td th:text="${produto.precoFormatado}"></td>
+                <td th:text="${produto.estoque}"></td>
+                <td><span class="status" th:classappend="${produto.classeSituacao}" th:text="${produto.situacao}"></span></td>
+                <td><a th:href="@{/produtos/{codigo}(codigo=${produto.codigo})}">Ver</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>Sistema de controle de estoque</p>
+    </footer>
+
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

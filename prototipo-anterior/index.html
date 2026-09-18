@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel inicial | FlaStore Controle</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="container barra-topo">
+        <a class="marca" href="index.html">FlaStore Controle</a>
+        <nav class="menu" aria-label="Menu principal">
+          <a href="index.html">Início</a>
+          <a href="produtos.html">Produtos</a>
+          <a href="cadastro.html">Cadastro</a>
+          <a href="detalhes.html">Detalhes</a>
+          <button id="sairSistema" type="button">Sair</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="titulo-pagina">
+        <p>Sistema de estoque simples</p>
+        <h1>Painel inicial</h1>
+        <span></span>
+      </section>
+
+      <section class="destaque">
+        <div>
+          <h2>Controle básico de produtos rubro-negros</h2>
+          <p>
+            O sistema organiza produtos, estoque e informações de cadastro para
+            uma loja fictícia de artigos esportivos.
+          </p>
+          <a class="botao" href="produtos.html">Ver produtos</a>
+        </div>
+        <img
+          src="img/produtos-rubro-negros.png"
+          alt="Produtos rubro-negros em exposição"
+        />
+      </section>
+
+      <section class="grade-resumo" aria-label="Resumo do estoque">
+        <article class="cartao">
+          <span class="numero" id="totalProdutos">8</span>
+          <h2>Produtos cadastrados</h2>
+          <p>Itens disponíveis na listagem principal.</p>
+        </article>
+
+        <article class="cartao">
+          <span class="numero" id="totalDisponiveis">7</span>
+          <h2>Produtos disponíveis</h2>
+          <p>Produtos com unidades no estoque.</p>
+        </article>
+
+        <article class="cartao">
+          <span class="numero" id="totalEsgotados">1</span>
+          <h2 id="tituloEsgotados">Produto esgotado</h2>
+          <p id="listaEsgotados">Camisa Retrô está sem unidades no estoque.</p>
+        </article>
+      </section>
+
+      <section class="bloco">
+        <h2>Selecione a loja</h2>
+        <p>Escolha uma loja para visualizar no protótipo.</p>
+
+        <label class="campo-busca" for="lojaSelecionada">
+          Loja
+          <select id="lojaSelecionada" name="lojaSelecionada">
+            <option>Loja Centro</option>
+            <option>Loja Shopping Norte</option>
+            <option>Loja Online</option>
+          </select>
+        </label>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>Sistema de controle de estoque</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

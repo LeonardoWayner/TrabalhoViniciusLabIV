@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalhes | FlaStore Controle</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="container barra-topo">
+        <a class="marca" href="index.html">FlaStore Controle</a>
+        <nav class="menu" aria-label="Menu principal">
+          <a href="index.html">Início</a>
+          <a href="produtos.html">Produtos</a>
+          <a href="cadastro.html">Cadastro</a>
+          <a href="detalhes.html">Detalhes</a>
+          <button id="sairSistema" type="button">Sair</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="titulo-pagina">
+        <p>Tela de detalhes</p>
+        <h1 id="tituloProduto">Camisa Rubro-Negra</h1>
+        <span id="codigoProdutoTexto">Código do produto: 001</span>
+      </section>
+
+      <section class="detalhe-produto">
+        <img
+          src="img/produtos-rubro-negros.png"
+          alt="Imagem de produtos rubro-negros"
+        />
+
+        <div class="bloco">
+          <h2>Informações do produto</h2>
+          <dl class="lista-detalhes">
+            <div>
+              <dt>Categoria</dt>
+              <dd id="categoriaDetalhe">Camisas</dd>
+            </div>
+            <div>
+              <dt>Preço</dt>
+              <dd id="precoDetalhe">R$ 189,90</dd>
+            </div>
+            <div>
+              <dt>Estoque</dt>
+              <dd id="estoqueDetalhe">24 unidades</dd>
+            </div>
+            <div>
+              <dt>Situação</dt>
+              <dd id="situacaoDetalhe">Disponível</dd>
+            </div>
+          </dl>
+
+          <p id="descricaoDetalhe">
+            Modelo listrado em tecido leve, usado como exemplo para demonstrar
+            a tela de visualização do sistema.
+          </p>
+        </div>
+      </section>
+
+      <section class="bloco">
+        <h2>Editar informações do produto</h2>
+        <form id="editarProdutoForm" class="formulario edicao-produto">
+          <label for="editarNome">Nome</label>
+          <input id="editarNome" type="text" value="Camisa Rubro-Negra" required />
+
+          <label for="editarCategoria">Categoria</label>
+          <select id="editarCategoria" required>
+            <option>Camisas</option>
+            <option>Acessórios</option>
+            <option>Casa</option>
+            <option>Kits</option>
+          </select>
+
+          <label for="editarPreco">Preço</label>
+          <input id="editarPreco" type="number" min="1" step="0.01" value="189.90" required />
+
+          <label for="editarEstoque">Estoque</label>
+          <input id="editarEstoque" type="number" min="0" value="24" required />
+
+          <label for="editarSituacao">Situação</label>
+          <select id="editarSituacao" required>
+            <option>Disponível</option>
+            <option>Baixo estoque</option>
+            <option>Esgotado</option>
+          </select>
+
+          <label for="editarDescricao">Descrição</label>
+          <textarea id="editarDescricao" rows="4" required>Modelo listrado em tecido leve, usado como exemplo para demonstrar a tela de visualização do sistema.</textarea>
+
+          <button class="botao" type="submit">Salvar alterações</button>
+        </form>
+        <p id="mensagemEdicao" class="mensagem" role="status"></p>
+      </section>
+
+    </main>
+
+    <footer class="rodape">
+      <p>Sistema de controle de estoque</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

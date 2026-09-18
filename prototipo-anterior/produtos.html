@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produtos | FlaStore Controle</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="container barra-topo">
+        <a class="marca" href="index.html">FlaStore Controle</a>
+        <nav class="menu" aria-label="Menu principal">
+          <a href="index.html">Início</a>
+          <a href="produtos.html">Produtos</a>
+          <a href="cadastro.html">Cadastro</a>
+          <a href="detalhes.html">Detalhes</a>
+          <button id="sairSistema" type="button">Sair</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="titulo-pagina">
+        <p>Listagem principal</p>
+        <h1>Produtos cadastrados</h1>
+        <span id="contadorProdutos">8 produtos encontrados</span>
+      </section>
+
+      <section class="bloco">
+        <label class="campo-busca" for="filtroProduto">
+          Buscar produto
+          <input
+            id="filtroProduto"
+            type="search"
+            placeholder="Digite nome, categoria ou situação"
+          />
+        </label>
+
+        <div class="tabela-container">
+          <table id="tabelaProdutos">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Produto</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Situação</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>001</td>
+                <td>Camisa Rubro-Negra</td>
+                <td>Camisas</td>
+                <td>R$ 189,90</td>
+                <td>24</td>
+                <td><span class="status ok">Disponível</span></td>
+                <td><a href="detalhes.html?id=001">Ver</a></td>
+              </tr>
+              <tr>
+                <td>002</td>
+                <td>Jaqueta Arquibancada</td>
+                <td>Camisas</td>
+                <td>R$ 249,90</td>
+                <td>8</td>
+                <td><span class="status ok">Disponível</span></td>
+                <td><a href="detalhes.html?id=002">Ver</a></td>
+              </tr>
+              <tr>
+                <td>003</td>
+                <td>Cachecol Torcida</td>
+                <td>Acessórios</td>
+                <td>R$ 79,90</td>
+                <td>5</td>
+                <td><span class="status atencao">Baixo estoque</span></td>
+                <td><a href="detalhes.html?id=003">Ver</a></td>
+              </tr>
+              <tr>
+                <td>004</td>
+                <td>Caneca Listrada</td>
+                <td>Casa</td>
+                <td>R$ 49,90</td>
+                <td>18</td>
+                <td><span class="status ok">Disponível</span></td>
+                <td><a href="detalhes.html?id=004">Ver</a></td>
+              </tr>
+              <tr>
+                <td>005</td>
+                <td>Boné Nação</td>
+                <td>Acessórios</td>
+                <td>R$ 69,90</td>
+                <td>3</td>
+                <td><span class="status atencao">Baixo estoque</span></td>
+                <td><a href="detalhes.html?id=005">Ver</a></td>
+              </tr>
+              <tr>
+                <td>006</td>
+                <td>Kit Presente</td>
+                <td>Kits</td>
+                <td>R$ 299,90</td>
+                <td>11</td>
+                <td><span class="status ok">Disponível</span></td>
+                <td><a href="detalhes.html?id=006">Ver</a></td>
+              </tr>
+              <tr>
+                <td>007</td>
+                <td>Garrafa de Treino</td>
+                <td>Acessórios</td>
+                <td>R$ 59,90</td>
+                <td>20</td>
+                <td><span class="status ok">Disponível</span></td>
+                <td><a href="detalhes.html?id=007">Ver</a></td>
+              </tr>
+              <tr>
+                <td>008</td>
+                <td>Camisa Retrô</td>
+                <td>Camisas</td>
+                <td>R$ 219,90</td>
+                <td>0</td>
+                <td><span class="status indisponivel">Esgotado</span></td>
+                <td><a href="detalhes.html?id=008">Ver</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>Sistema de controle de estoque</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel inicial | FlaStore Controle</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="container barra-topo">
+        <a class="marca" th:href="@{/}">FlaStore Controle</a>
+        <nav class="menu" aria-label="Menu principal">
+          <a th:href="@{/}">Início</a>
+          <a th:href="@{/produtos}">Produtos</a>
+          <a th:href="@{/produtos/novo}">Cadastro</a>
+          <a th:href="@{/produtos/001}">Detalhes</a>
+          <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="titulo-pagina">
+        <p>Sistema de estoque simples</p>
+        <h1>Painel inicial</h1>
+        <span></span>
+      </section>
+
+      <section class="destaque">
+        <div>
+          <h2>Controle básico de produtos rubro-negros</h2>
+          <p>
+            O sistema organiza produtos, estoque e informações de cadastro para
+            uma loja fictícia de artigos esportivos.
+          </p>
+          <a class="botao" th:href="@{/produtos}">Ver produtos</a>
+        </div>
+        <img
+          th:src="@{/img/produtos-rubro-negros.png}"
+          alt="Produtos rubro-negros em exposição"
+        />
+      </section>
+
+      <section class="grade-resumo" aria-label="Resumo do estoque">
+        <article class="cartao">
+          <span class="numero" id="totalProdutos" th:text="${totalProdutos}">8</span>
+          <h2>Produtos cadastrados</h2>
+          <p>Itens disponíveis na listagem principal.</p>
+        </article>
+
+        <article class="cartao">
+          <span class="numero" id="totalDisponiveis" th:text="${totalDisponiveis}">7</span>
+          <h2>Produtos disponíveis</h2>
+          <p>Produtos com unidades no estoque.</p>
+        </article>
+
+        <article class="cartao">
+          <span class="numero" id="totalEsgotados" th:text="${totalEsgotados}">1</span>
+          <h2 id="tituloEsgotados" th:text="${totalEsgotados == 1 ? 'Produto esgotado' : 'Produtos esgotados'}">Produto esgotado</h2>
+          <p id="listaEsgotados" th:text="${listaEsgotados}">Camisa Retrô está sem unidades no estoque.</p>
+        </article>
+      </section>
+
+      <section class="bloco">
+        <h2>Selecione a loja</h2>
+        <p>Escolha uma loja para visualizar no protótipo.</p>
+
+        <label class="campo-busca" for="lojaSelecionada">
+          Loja
+          <select id="lojaSelecionada" name="lojaSelecionada">
+            <option>Loja Centro</option>
+            <option>Loja Shopping Norte</option>
+            <option>Loja Online</option>
+          </select>
+        </label>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>Sistema de controle de estoque</p>
+    </footer>
+
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

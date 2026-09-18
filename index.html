@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Projeto acadêmico com linha do tempo animada dos títulos do Flamengo e loja virtual rubro-negra usando HTML, CSS e JavaScript."
+    />
+    <title>Glórias Rubro-Negras | FlaStore</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#historia">Ir para a linha do tempo</a>
+
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Navegação principal">
+        <a class="brand" href="#top" aria-label="Página inicial da FlaStore">
+          <span class="brand-mark" aria-hidden="true">FS</span>
+          <span>
+            <strong>FlaStore</strong>
+            <small>Rubro-Negra</small>
+          </span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#historia">História</a>
+          <a href="#catalogo">Produtos</a>
+          <a href="#oferta">Oferta</a>
+          <a href="#contato">Contato</a>
+        </div>
+
+        <button
+          class="cart-button"
+          id="openCart"
+          type="button"
+          aria-label="Abrir carrinho"
+          aria-expanded="false"
+        >
+          <span class="cart-icon" aria-hidden="true"></span>
+          <span>Carrinho</span>
+          <strong id="cartCount">0</strong>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-section" aria-labelledby="heroTitle">
+        <img
+          class="hero-image"
+          src="assets/hero-produtos-rubro-negros.png"
+          alt="Produtos rubro-negros com camisa, boné, caneca, cachecol e caixa de presente"
+        />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Linha do tempo rubro-negra</p>
+          <h1 id="heroTitle">Glórias do Flamengo</h1>
+          <p>
+            Uma home interativa com os títulos mais marcantes do Mengão, das
+            primeiras conquistas aos anos recentes de taças.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#historia">Explorar títulos</a>
+            <a class="secondary-action" href="#catalogo">Ver produtos</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics-band" aria-label="Destaques históricos">
+        <div>
+          <strong>1981</strong>
+          <span>Mundial</span>
+        </div>
+        <div>
+          <strong>4x</strong>
+          <span>Libertadores</span>
+        </div>
+        <div>
+          <strong>9</strong>
+          <span>Brasileirões</span>
+        </div>
+        <div>
+          <strong>5</strong>
+          <span>Copas do Brasil</span>
+        </div>
+      </section>
+
+      <section class="history-section" id="historia" aria-labelledby="historyTitle">
+        <div class="section-heading history-heading scroll-reveal">
+          <p class="eyebrow">História</p>
+          <h2 id="historyTitle">Títulos que marcaram gerações</h2>
+          <p>
+            Uma seleção dos momentos que ajudaram a transformar o Flamengo em
+            uma das camisas mais vencedoras do futebol brasileiro.
+          </p>
+        </div>
+
+        <div class="title-timeline" id="titleTimeline" aria-label="Linha do tempo dos principais títulos">
+          <div class="title-timeline-line" aria-hidden="true">
+            <span id="titleTimelineProgress"></span>
+          </div>
+
+          <div class="title-timeline-list" id="titleTimelineList">
+            <article class="title-card scroll-reveal">
+              <span class="title-year">1914</span>
+              <div class="title-card-content">
+                <span class="title-badge">Estadual</span>
+                <h3>Primeiro título carioca</h3>
+                <strong>Campeonato Carioca</strong>
+                <p>
+                  A primeira conquista estadual marcou o início da tradição
+                  vencedora do Flamengo no futebol.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">1980</span>
+              <div class="title-card-content">
+                <span class="title-badge">Nacional</span>
+                <h3>Primeiro Brasileirão</h3>
+                <strong>Campeonato Brasileiro</strong>
+                <p>
+                  O clube levantou seu primeiro título brasileiro e abriu uma
+                  década histórica para a geração rubro-negra.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">1981</span>
+              <div class="title-card-content">
+                <span class="title-badge">Continental</span>
+                <h3>A América ficou rubro-negra</h3>
+                <strong>Taça Libertadores da América</strong>
+                <p>
+                  A primeira Libertadores colocou o Flamengo no topo do
+                  continente e levou o time à disputa mundial.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">1981</span>
+              <div class="title-card-content">
+                <span class="title-badge">Mundial</span>
+                <h3>Campeão mundial</h3>
+                <strong>Mundial Interclubes</strong>
+                <p>
+                  A vitória sobre o Liverpool no Japão transformou 1981 em um
+                  dos anos mais lembrados pela torcida.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">1992</span>
+              <div class="title-card-content">
+                <span class="title-badge">Nacional</span>
+                <h3>Outra geração campeã</h3>
+                <strong>Campeonato Brasileiro</strong>
+                <p>
+                  O título nacional mostrou a força de uma nova equipe e
+                  aumentou a galeria de conquistas brasileiras.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">1999</span>
+              <div class="title-card-content">
+                <span class="title-badge">Continental</span>
+                <h3>Força sul-americana</h3>
+                <strong>Copa Mercosul</strong>
+                <p>
+                  A conquista internacional contra o Palmeiras fechou os anos
+                  1990 com festa rubro-negra.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">2009</span>
+              <div class="title-card-content">
+                <span class="title-badge">Nacional</span>
+                <h3>Hexa no Maracanã</h3>
+                <strong>Campeonato Brasileiro</strong>
+                <p>
+                  Com arrancada emocionante na reta final, o Flamengo voltou a
+                  conquistar o Brasil.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">2019</span>
+              <div class="title-card-content">
+                <span class="title-badge">Dobradinha</span>
+                <h3>Ano mágico</h3>
+                <strong>Libertadores e Campeonato Brasileiro</strong>
+                <p>
+                  O Flamengo conquistou América e Brasil em uma temporada que
+                  virou referência moderna para o clube.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">2022</span>
+              <div class="title-card-content">
+                <span class="title-badge">Copas</span>
+                <h3>Copas no mesmo ano</h3>
+                <strong>Libertadores e Copa do Brasil</strong>
+                <p>
+                  A temporada terminou com dois troféus de mata-mata e mais uma
+                  página marcante na história recente.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">2024</span>
+              <div class="title-card-content">
+                <span class="title-badge">Nacional</span>
+                <h3>Penta da Copa</h3>
+                <strong>Copa do Brasil</strong>
+                <p>
+                  Mais uma conquista nacional em formato de mata-mata para a
+                  coleção rubro-negra.
+                </p>
+              </div>
+            </article>
+
+            <article class="title-card scroll-reveal">
+              <span class="title-year">2025</span>
+              <div class="title-card-content">
+                <span class="title-badge">Recente</span>
+                <h3>Nova era de taças</h3>
+                <strong>Libertadores e Campeonato Brasileiro</strong>
+                <p>
+                  As listas atualizadas registram novas conquistas continentais
+                  e nacionais para o Flamengo.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="offer-section" id="oferta" aria-labelledby="offerTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Oferta</p>
+          <h2 id="offerTitle">Oferta relâmpago rubro-negra</h2>
+          <p>Desconto especial por tempo limitado para montar o kit do próximo jogo.</p>
+        </div>
+
+        <div class="countdown-panel" data-offer-countdown>
+          <div class="deal-copy">
+            <span class="deal-tag">15% OFF</span>
+            <h3>Combo arquibancada</h3>
+            <p>Camisa, cachecol e caneca com desconto especial até o fim do prazo.</p>
+          </div>
+
+          <div class="countdown" aria-label="Tempo restante da oferta">
+            <div>
+              <strong data-countdown-unit="hours">00</strong>
+              <span>horas</span>
+            </div>
+            <div>
+              <strong data-countdown-unit="minutes">00</strong>
+              <span>minutos</span>
+            </div>
+            <div>
+              <strong data-countdown-unit="seconds">00</strong>
+              <span>segundos</span>
+            </div>
+          </div>
+
+          <div class="countdown-track" aria-hidden="true">
+            <span data-countdown-bar></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog-section" id="catalogo" aria-labelledby="catalogTitle">
+        <div class="section-heading catalog-heading">
+          <div>
+            <p class="eyebrow">Catálogo</p>
+            <h2 id="catalogTitle">Produtos em destaque</h2>
+          </div>
+          <p>Escolha os itens, adicione ao carrinho e finalize uma compra simulada.</p>
+        </div>
+
+        <div class="shop-toolbar" aria-label="Filtros do catálogo">
+          <label class="search-box" for="productSearch">
+            <span aria-hidden="true"></span>
+            <input
+              id="productSearch"
+              type="search"
+              placeholder="Buscar produto"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="filter-tabs" id="categoryFilters" role="list" aria-label="Categorias"></div>
+
+          <label class="sort-box" for="sortProducts">
+            <span>Ordenar</span>
+            <select id="sortProducts">
+              <option value="featured">Destaques</option>
+              <option value="price-asc">Menor preço</option>
+              <option value="price-desc">Maior preço</option>
+              <option value="name">Nome</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="product-grid" id="productGrid" aria-live="polite">
+          <article
+            class="product-card"
+            data-id="camisa-torcida"
+            data-category="Camisas"
+            data-name="Camisa Rubro-Negra"
+            data-description="Modelo listrado em tecido leve para acompanhar jogos e treinos."
+            data-price="189.90"
+            data-featured="1"
+          >
+            <div class="product-visual visual-jersey" role="img" aria-label="Camisa Rubro-Negra">
+              <span class="visual-badge">Novo</span>
+            </div>
+            <div class="product-body">
+              <span class="product-kicker">Camisas</span>
+              <h3>Camisa Rubro-Negra</h3>
+              <p>Modelo listrado em tecido leve para acompanhar jogos e treinos.</p>
+              <div class="product-footer">
+                <span class="price">R$ 189,90</span>
+                <button class="add-button" type="button" data-add="camisa-torcida">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-id="jaqueta-arquibancada"
+            data-category="Camisas"
+            data-name="Jaqueta Arquibancada"
+            data-description="Jaqueta preta com detalhe vermelho para dias de jogo a noite."
+            data-price="249.90"
+            data-featured="2"
+          >
+            <div class="product-visual visual-jacket" role="img" aria-label="Jaqueta Arquibancada">
+              <span class="visual-badge">Top</span>
+            </div>
+            <div class="product-body">
+              <span class="product-kicker">Camisas</span>
+              <h3>Jaqueta Arquibancada</h3>
+              <p>Jaqueta preta com detalhe vermelho para dias de jogo a noite.</p>
+              <div class="product-footer">
+                <span class="price">R$ 249,90</span>
+                <button class="add-button" type="button" data-add="jaqueta-arquibancada">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-id="cachecol-torcida"
+            data-category="Acessórios"
+            data-name="Cachecol Torcida"
+            data-description="Cachecol macio com faixas vermelhas e pretas para a arquibancada."
+            data-price="79.90"
+            data-featured="3"
+          >
+            <div class="product-visual visual-scarf" role="img" aria-label="Cachecol Torcida">
+              <span class="visual-badge">15% off</span>
+            </div>
+            <div class="product-body">
+              <span class="product-kicker">Acessórios</span>
+              <h3>Cachecol Torcida</h3>
+              <p>Cachecol macio com faixas vermelhas e pretas para a arquibancada.</p>
+              <div class="product-footer">
+                <span class="price">R$ 79,90</span>
+                <button class="add-button" type="button" data-add="cachecol-torcida">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-id="caneca-manto"
+            data-category="Casa"
+            data-name="Caneca Listrada"
+            data-description="Caneca de cerâmica para café, coleção ou presente de torcedor."
+            data-price="49.90"
+            data-featured="4"
+          >
+            <div class="product-visual visual-mug" role="img" aria-label="Caneca Listrada">
+              <span class="visual-badge">Casa</span>
+            </div>
+            <div class="product-body">
+              <span class="product-kicker">Casa</span>
+              <h3>Caneca Listrada</h3>
+              <p>Caneca de cerâmica para café, coleção ou presente de torcedor.</p>
+              <div class="product-footer">
+                <span class="price">R$ 49,90</span>
+                <button class="add-button" type="button" data-add="caneca-manto">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-id="bone-nacao"
+            data-category="Acessórios"
+            data-name="Boné Nação"
+            data-description="Boné preto com detalhe vermelho, aba curva e ajuste traseiro."
+            data-price="69.90"
+            data-featured="5"
+          >
+            <div class="product-visual visual-cap" role="img" aria-label="Boné Nação">
+              <span class="visual-badge">Mais vendido</span>
+            </div>
+            <div class="product-body">
+              <span class="product-kicker">Acessórios</span>
+              <h3>Boné Nação</h3>
+              <p>Boné preto com detalhe vermelho, aba curva e ajuste traseiro.</p>
+              <div class="product-footer">
+                <span class="price">R$ 69,90</span>
+                <button class="add-button" type="button" data-add="bone-nacao">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-id="kit-presente"
+            data-category="Kits"
+            data-name="Kit Presente"
+            data-description="Caixa especial com camisa, caneca e cachecol para presentear."
+            data-price="299.90"
+            data-featured="6"
+          >
+            <div class="product-visual visual-gift" role="img" aria-label="Kit Presente">
+              <span class="visual-badge">Combo</span>
+            </div>
+            <div class="product-body">
+              <span class="product-kicker">Kits</span>
+              <h3>Kit Presente</h3>
+              <p>Caixa especial com camisa, caneca e cachecol para presentear.</p>
+              <div class="product-footer">
+                <span class="price">R$ 299,90</span>
+                <button class="add-button" type="button" data-add="kit-presente">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-id="garrafa-treino"
+            data-category="Acessórios"
+            data-name="Garrafa de Treino"
+            data-description="Garrafa esportiva com pegada confortável e visual rubro-negro."
+            data-price="59.90"
+            data-featured="7"
+          >
+            <div class="product-visual visual-bottle" role="img" aria-label="Garrafa de Treino">
+              <span class="visual-badge">Treino</span>
+            </div>
+            <div class="product-body">
+              <span class="product-kicker">Acessórios</span>
+              <h3>Garrafa de Treino</h3>
+              <p>Garrafa esportiva com pegada confortável e visual rubro-negro.</p>
+              <div class="product-footer">
+                <span class="price">R$ 59,90</span>
+                <button class="add-button" type="button" data-add="garrafa-treino">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-id="camisa-retro"
+            data-category="Camisas"
+            data-name="Camisa Retrô"
+            data-description="Peça de algodão com listras clássicas e corte casual."
+            data-price="219.90"
+            data-featured="8"
+          >
+            <div class="product-visual visual-shirt" role="img" aria-label="Camisa Retrô">
+              <span class="visual-badge">Retrô</span>
+            </div>
+            <div class="product-body">
+              <span class="product-kicker">Camisas</span>
+              <h3>Camisa Retrô</h3>
+              <p>Peça de algodão com listras clássicas e corte casual.</p>
+              <div class="product-footer">
+                <span class="price">R$ 219,90</span>
+                <button class="add-button" type="button" data-add="camisa-retro">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="empty-state" id="emptyState" hidden>Nenhum produto encontrado.</p>
+      </section>
+
+      <section class="contact-section" id="contato" aria-labelledby="contactTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Contato</p>
+          <h2 id="contactTitle">Receba novidades</h2>
+          <p>Cadastre seu e-mail para receber promoções e lançamentos.</p>
+        </div>
+
+        <form class="newsletter-form" id="newsletterForm">
+          <label for="newsletterName">Nome</label>
+          <input id="newsletterName" name="name" type="text" placeholder="Seu nome" required />
+
+          <label for="newsletterEmail">E-mail</label>
+          <input
+            id="newsletterEmail"
+            name="email"
+            type="email"
+            placeholder="seuemail@exemplo.com"
+            required
+          />
+
+          <button class="primary-action" type="submit">Cadastrar</button>
+        </form>
+      </section>
+    </main>
+
+    <aside class="cart-drawer" id="cartDrawer" aria-labelledby="cartTitle" aria-hidden="true">
+      <div class="cart-backdrop" id="cartBackdrop"></div>
+      <div class="cart-panel" role="dialog" aria-modal="true">
+        <header>
+          <div>
+            <p class="eyebrow">Compra simulada</p>
+            <h2 id="cartTitle">Carrinho</h2>
+          </div>
+          <button class="icon-button" id="closeCart" type="button" aria-label="Fechar carrinho">
+            &times;
+          </button>
+        </header>
+
+        <div class="cart-items" id="cartItems"></div>
+
+        <footer class="cart-summary">
+          <div>
+            <span>Subtotal</span>
+            <strong id="cartSubtotal">R$ 0,00</strong>
+          </div>
+          <div>
+            <span>Frete</span>
+            <strong id="cartShipping">R$ 0,00</strong>
+          </div>
+          <div class="cart-total">
+            <span>Total</span>
+            <strong id="cartTotal">R$ 0,00</strong>
+          </div>
+          <button class="primary-action" id="checkoutButton" type="button">Finalizar pedido</button>
+        </footer>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+      <p>
+        Projeto acadêmico feito com HTML, CSS e JavaScript. Sem vínculo oficial
+        com o Clube de Regatas do Flamengo.
+      </p>
+      <p class="source-note">
+        Fontes dos títulos:
+        <a href="https://www.flamengo.com.br/clube/titulos">Flamengo</a> e
+        <a href="https://ge.globo.com/futebol/times/flamengo/noticia/2025/12/03/com-brasileirao-flamengo-se-torna-o-atual-campeao-de-cinco-torneios-ao-mesmo-tempo-entenda.ghtml">ge</a>.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
