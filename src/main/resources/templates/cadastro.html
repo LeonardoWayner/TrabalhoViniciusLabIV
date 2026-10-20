@@ -14,7 +14,8 @@
           <a th:href="@{/}">Início</a>
           <a th:href="@{/produtos}">Produtos</a>
           <a th:href="@{/produtos/novo}">Cadastro</a>
-          <a th:href="@{/produtos/001}">Detalhes</a>
+          <a th:href="@{/entradas}">Entradas</a>
+          <a th:href="@{/saidas}">Saídas</a>
           <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
         </nav>
       </div>
@@ -30,26 +31,23 @@
       <section class="bloco">
         <form id="produtoForm" method="post" th:object="${produto}" th:action="@{/produtos}" class="formulario">
 <div class="mensagem erro visivel" th:if="${#fields.hasErrors('*')}" role="alert"><p>Confira os campos informados.</p><ul><li th:each="erro : ${#fields.errors('*')}" th:text="${erro}"></li></ul></div>
+          <p>O produto começa com estoque zero. Após cadastrar, registre uma entrada.</p>
+          <label for="codigo">Código</label><input id="codigo" th:field="*{codigo}" maxlength="20" required />
           <label for="nomeProduto">Nome do produto</label>
-          <input id="nomeProduto" th:field="*{nome}" name="nomeProduto" type="text" required />
+          <input id="nomeProduto" th:field="*{nome}" th:errorclass="campo-erro" maxlength="120" name="nomeProduto" type="text" required />
+          <p class="erro-campo" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
 
           <label for="categoriaProduto">Categoria</label>
-          <select id="categoriaProduto" th:field="*{categoria}" name="categoriaProduto" required>
+          <select id="categoriaProduto" th:field="*{categoria.id}" name="categoriaProduto" required>
             <option value="">Selecione</option>
-            <option value="Camisas">Camisas</option>
-            <option value="Acessórios">Acessórios</option>
-            <option value="Casa">Casa</option>
-            <option value="Kits">Kits</option>
+            <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}"></option>
           </select>
 
           <label for="precoProduto">Preço</label>
           <input id="precoProduto" th:field="*{preco}" name="precoProduto" type="number" min="1" step="0.01" required />
 
-          <label for="estoqueProduto">Quantidade em estoque</label>
-          <input id="estoqueProduto" th:field="*{estoque}" name="estoqueProduto" type="number" min="0" required />
-
           <label for="descricaoProduto">Descrição</label>
-          <textarea id="descricaoProduto" th:field="*{descricao}" name="descricaoProduto" rows="4" required></textarea>
+          <textarea id="descricaoProduto" th:field="*{descricao}" maxlength="2000" name="descricaoProduto" rows="4" required></textarea>
 
           <button class="botao" type="submit">Cadastrar</button>
         </form>

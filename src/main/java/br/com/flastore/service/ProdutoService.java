@@ -1,47 +1,83 @@
 package br.com.flastore.service;
 
-import br.com.flastore.model.Produto;
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import br.com.flastore.model.*;
+import br.com.flastore.repository.*;
 import java.util.List;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.transaction.annotation.Transactional;
 
-/** Dados simulados: os registros voltam ao estado inicial quando o servidor reinicia. */
 @Service
+@Transactional(readOnly = true)
 public class ProdutoService {
-    private final List<Produto> produtos = new ArrayList<>();
-    private int proximoCodigo = 9;
-    public ProdutoService() {
-        produtos.add(new Produto("001", "Camisa Rubro-Negra", "Camisas", new BigDecimal("189.9"), 24, "Modelo listrado em tecido leve, usado como exemplo para demonstrar a tela de visualização do sistema."));
-        produtos.add(new Produto("002", "Jaqueta Arquibancada", "Camisas", new BigDecimal("249.9"), 8, "Jaqueta preta com detalhe vermelho para dias de jogo à noite."));
-        produtos.add(new Produto("003", "Cachecol Torcida", "Acessórios", new BigDecimal("79.9"), 5, "Cachecol macio com faixas vermelhas e pretas para a arquibancada."));
-        produtos.add(new Produto("004", "Caneca Listrada", "Casa", new BigDecimal("49.9"), 18, "Caneca de cerâmica para café, coleção ou presente de torcedor."));
-        produtos.add(new Produto("005", "Boné Nação", "Acessórios", new BigDecimal("69.9"), 3, "Boné preto com detalhe vermelho, aba curva e ajuste traseiro."));
-        produtos.add(new Produto("006", "Kit Presente", "Kits", new BigDecimal("299.9"), 11, "Caixa especial com camisa, caneca e cachecol para presentear."));
-        produtos.add(new Produto("007", "Garrafa de Treino", "Acessórios", new BigDecimal("59.9"), 20, "Garrafa esportiva com pegada confortável e visual rubro-negro."));
-        produtos.add(new Produto("008", "Camisa Retrô", "Camisas", new BigDecimal("219.9"), 0, "Peça de algodão com listras clássicas e corte casual."));
+    private final ProdutoRepository produtos;
+    private final CategoriaRepository categorias;
+    private final ItemEntradaRepository itensEntrada;
+    private final ItemSaidaRepository itensSaida;
+
+    public ProdutoService(ProdutoRepository produtos, CategoriaRepository categorias,
+            ItemEntradaRepository itensEntrada, ItemSaidaRepository itensSaida) {
+        this.produtos = produtos;
+        this.categorias = categorias;
+        this.itensEntrada = itensEntrada;
+        this.itensSaida = itensSaida;
     }
-    public synchronized List<Produto> listar() { return produtos.stream().map(Produto::copia).toList(); }
-    public synchronized Produto buscar(String codigo) {
-        return produtos.stream().filter(p -> p.getCodigo().equals(codigo)).findFirst().map(Produto::copia)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
-    }
-    public synchronized void cadastrar(Produto produto) {
-        Produto novo = produto.copia();
-        novo.setCodigo(String.format("%03d", proximoCodigo++));
-        produtos.add(novo);
-    }
-    public synchronized void atualizar(String codigo, Produto produto) {
-        buscar(codigo);
-        for (int i = 0; i < produtos.size(); i++) {
-            if (produtos.get(i).getCodigo().equals(codigo)) {
-                Produto atualizado = produto.copia();
-                atualizado.setCodigo(codigo);
-                produtos.set(i, atualizado);
-                return;
-            }
+
+    public List<Produto> listar() { return produtos.findAll(Sort.by("id")); }
+    public List<Categoria> listarCategorias() { return categorias.findAll(Sort.by("nome")); }
+    public Produto buscar(Long id) { return produtos.findById(id).orElse(null); }
+
+    public String validar(Produto produto) {
+        boolean codigoDuplicado = produto.getId() == null
+                ? produtos.existsByCodigo(produto.getCodigo())
+                : produtos.existsByCodigoAndIdNot(produto.getCodigo(), produto.getId());
+        if (codigoDuplicado) return "Já existe um produto com esse código.";
+        if (produto.getCategoria() == null || produto.getCategoria().getId() == null
+                || !categorias.existsById(produto.getCategoria().getId())) {
+            return "Selecione uma categoria existente.";
         }
+        return null;
+    }
+
+    @Transactional
+    public String cadastrar(Produto dados) {
+        String erro = validar(dados);
+        if (erro != null) return erro;
+        Produto novo = new Produto();
+        copiarCadastro(dados, novo);
+        novo.setEstoque(0);
+        produtos.save(novo);
+        return null;
+    }
+
+    @Transactional
+    public String atualizar(Long id, Produto dados) {
+        Produto existente = produtos.buscarParaAtualizar(id).orElse(null);
+        if (existente == null) return "Produto não encontrado.";
+        dados.setId(id);
+        String erro = validar(dados);
+        if (erro != null) return erro;
+        copiarCadastro(dados, existente);
+        produtos.save(existente);
+        return null;
+    }
+
+    private void copiarCadastro(Produto origem, Produto destino) {
+        destino.setCodigo(origem.getCodigo());
+        destino.setNome(origem.getNome());
+        destino.setDescricao(origem.getDescricao());
+        destino.setPreco(origem.getPreco());
+        destino.setCategoria(categorias.findById(origem.getCategoria().getId()).orElseThrow());
+    }
+
+    @Transactional
+    public String excluir(Long id) {
+        Produto produto = produtos.buscarParaAtualizar(id).orElse(null);
+        if (produto == null) return "Produto não encontrado.";
+        if (itensEntrada.existsByProdutoId(id) || itensSaida.existsByProdutoId(id)) {
+            return "Produto com movimentações não pode ser excluído, para preservar o histórico.";
+        }
+        produtos.deleteById(id);
+        return null;
     }
 }

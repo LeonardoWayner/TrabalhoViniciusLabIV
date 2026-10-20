@@ -14,7 +14,8 @@
           <a th:href="@{/}">Início</a>
           <a th:href="@{/produtos}">Produtos</a>
           <a th:href="@{/produtos/novo}">Cadastro</a>
-          <a th:href="@{/produtos/001}">Detalhes</a>
+          <a th:href="@{/entradas}">Entradas</a>
+          <a th:href="@{/saidas}">Saídas</a>
           <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
         </nav>
       </div>
@@ -38,7 +39,7 @@
           <dl class="lista-detalhes">
             <div>
               <dt>Categoria</dt>
-              <dd id="categoriaDetalhe" th:text="${produto.categoria}">Camisas</dd>
+              <dd id="categoriaDetalhe" th:text="${produto.categoria != null ? produto.categoria.nome : 'Selecione uma categoria'}">Camisas</dd>
             </div>
             <div>
               <dt>Preço</dt>
@@ -63,29 +64,25 @@
 
       <section class="bloco">
         <h2>Editar informações do produto</h2>
-        <form id="editarProdutoForm" method="post" th:object="${produto}" th:action="@{/produtos/{codigo}(codigo=${produto.codigo})}" class="formulario edicao-produto">
+        <form id="editarProdutoForm" method="post" th:object="${produto}" th:action="@{/produtos/{id}/editar(id=${produto.id})}" class="formulario edicao-produto">
 <div class="mensagem erro visivel" th:if="${#fields.hasErrors('*')}" role="alert"><p>Confira os campos informados.</p><ul><li th:each="erro : ${#fields.errors('*')}" th:text="${erro}"></li></ul></div>
+          <label for="codigo">Código</label><input id="codigo" th:field="*{codigo}" maxlength="20" required />
           <label for="editarNome">Nome</label>
-          <input id="editarNome" th:field="*{nome}" type="text" value="Camisa Rubro-Negra" required />
+          <input id="editarNome" th:field="*{nome}" th:errorclass="campo-erro" maxlength="120" type="text" value="Camisa Rubro-Negra" required />
+          <p class="erro-campo" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
 
           <label for="editarCategoria">Categoria</label>
-          <select id="editarCategoria" th:field="*{categoria}" required>
-            <option value="Camisas">Camisas</option>
-            <option value="Acessórios">Acessórios</option>
-            <option value="Casa">Casa</option>
-            <option value="Kits">Kits</option>
+          <select id="editarCategoria" th:field="*{categoria.id}" required>
+            <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}"></option>
           </select>
 
           <label for="editarPreco">Preço</label>
           <input id="editarPreco" th:field="*{preco}" type="number" min="1" step="0.01" value="189.90" required />
 
-          <label for="editarEstoque">Estoque</label>
-          <input id="editarEstoque" th:field="*{estoque}" type="number" min="0" value="24" required />
-
-          <p>A situação é calculada automaticamente conforme o estoque: zero = esgotado; até 5 = baixo estoque.</p>
+          <p>Para alterar o saldo, use as telas Entradas e Saídas. A situação é calculada automaticamente conforme o estoque: zero = esgotado; até 5 = baixo estoque.</p>
 
           <label for="editarDescricao">Descrição</label>
-          <textarea id="editarDescricao" th:field="*{descricao}" rows="4" required>Modelo listrado em tecido leve, usado como exemplo para demonstrar a tela de visualização do sistema.</textarea>
+          <textarea id="editarDescricao" th:field="*{descricao}" maxlength="2000" rows="4" required>Modelo listrado em tecido leve, usado como exemplo para demonstrar a tela de visualização do sistema.</textarea>
 
           <button class="botao" type="submit">Salvar alterações</button>
         </form>

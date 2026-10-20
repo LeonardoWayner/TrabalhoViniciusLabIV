@@ -14,7 +14,8 @@
           <a th:href="@{/}">Início</a>
           <a th:href="@{/produtos}">Produtos</a>
           <a th:href="@{/produtos/novo}">Cadastro</a>
-          <a th:href="@{/produtos/001}">Detalhes</a>
+          <a th:href="@{/entradas}">Entradas</a>
+          <a th:href="@{/saidas}">Saídas</a>
           <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
         </nav>
       </div>
@@ -62,19 +63,7 @@
         </article>
       </section>
 
-      <section class="bloco">
-        <h2>Selecione a loja</h2>
-        <p>Escolha uma loja para visualizar no protótipo.</p>
-
-        <label class="campo-busca" for="lojaSelecionada">
-          Loja
-          <select id="lojaSelecionada" name="lojaSelecionada">
-            <option>Loja Centro</option>
-            <option>Loja Shopping Norte</option>
-            <option>Loja Online</option>
-          </select>
-        </label>
-      </section>
+      <section class="bloco"><h2>Movimentar estoque</h2><p>O sistema controla uma única loja. Registre os recebimentos e as retiradas para manter o saldo atualizado.</p><a class="botao" th:href="@{/entradas}">Registrar entrada</a> <a class="botao" th:href="@{/saidas}">Registrar saída</a></section>
     </main>
 
     <footer class="rodape">

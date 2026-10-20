@@ -14,7 +14,8 @@
           <a th:href="@{/}">Início</a>
           <a th:href="@{/produtos}">Produtos</a>
           <a th:href="@{/produtos/novo}">Cadastro</a>
-          <a th:href="@{/produtos/001}">Detalhes</a>
+          <a th:href="@{/entradas}">Entradas</a>
+          <a th:href="@{/saidas}">Saídas</a>
           <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
         </nav>
       </div>
@@ -29,6 +30,7 @@
 
       <section class="bloco">
 <p class="mensagem visivel" th:if="${mensagem}" th:text="${mensagem}" role="status"></p>
+        <p class="mensagem erro visivel" th:if="${erro}" th:text="${erro}" role="alert"></p>
         <label class="campo-busca" for="filtroProduto">
           Buscar produto
           <input
@@ -55,11 +57,12 @@
               <tr th:each="produto : ${produtos}">
                 <td th:text="${produto.codigo}"></td>
                 <td th:text="${produto.nome}"></td>
-                <td th:text="${produto.categoria}"></td>
+                <td th:text="${produto.categoria.nome}"></td>
                 <td th:text="${produto.precoFormatado}"></td>
                 <td th:text="${produto.estoque}"></td>
                 <td><span class="status" th:classappend="${produto.classeSituacao}" th:text="${produto.situacao}"></span></td>
-                <td><a th:href="@{/produtos/{codigo}(codigo=${produto.codigo})}">Ver</a></td>
+                <td><a th:href="@{/produtos/{id}(id=${produto.id})}">Ver / editar</a>
+<form th:action="@{/produtos/{id}/excluir(id=${produto.id})}" method="post" onsubmit="return confirm('Deseja excluir este produto?')"><button type="submit">Excluir</button></form></td>
               </tr>
             </tbody>
           </table>

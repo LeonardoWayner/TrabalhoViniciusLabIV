@@ -402,3 +402,7 @@ td a {
     width: 100%;
   }
 }
+
+
+.campo-erro { border: 2px solid #b42318; }
+.erro-campo { color: #b42318; font-size: 0.9rem; margin-top: 0; }

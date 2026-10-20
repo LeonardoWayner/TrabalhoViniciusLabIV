@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saídas | FlaStore Controle</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="container barra-topo">
+        <a class="marca" th:href="@{/}">FlaStore Controle</a>
+        <nav class="menu" aria-label="Menu principal">
+          <a th:href="@{/}">Início</a>
+          <a th:href="@{/produtos}">Produtos</a>
+          <a th:href="@{/produtos/novo}">Cadastro</a>
+          <a th:href="@{/entradas}">Entradas</a>
+          <a th:href="@{/saidas}">Saídas</a>
+          <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <section class="titulo-pagina">
+        <p>Controle de estoque</p>
+        <h1>Saídas de estoque</h1>
+        <span>Registre um produto por movimentação.</span>
+      </section>
+      <section class="bloco">
+        <p class="mensagem visivel" th:if="${mensagem}" th:text="${mensagem}" role="status"></p>
+        <form class="formulario" method="post" th:action="@{/saidas}" th:object="${saidaForm}">
+          <div class="mensagem erro visivel" th:if="${#fields.hasErrors('*')}" role="alert">
+            <p>Confira os campos informados.</p>
+            <ul><li th:each="erro : ${#fields.errors('*')}" th:text="${erro}"></li></ul>
+          </div>
+          <label for="produto">Produto</label>
+          <select id="produto" th:field="*{produtoId}" required>
+            <option value="">Selecione</option>
+            <option th:each="produto : ${produtos}" th:value="${produto.id}" th:text="|${produto.codigo} - ${produto.nome} (saldo: ${produto.estoque})|"></option>
+          </select>
+          <label for="quantidade">Quantidade</label>
+          <input id="quantidade" type="number" th:field="*{quantidade}" min="1" step="1" required th:errorclass="campo-erro" />
+          <p class="erro-campo" th:if="${#fields.hasErrors('quantidade')}" th:errors="*{quantidade}"></p>
+          <label for="motivo">Motivo</label>
+          <select id="motivo" th:field="*{motivo}" required>
+            <option value="">Selecione</option>
+            <option value="VENDA">Venda</option>
+            <option value="PERDA">Perda</option>
+            <option value="USO_INTERNO">Uso interno</option>
+          </select>
+          <label for="observacao">Observação (opcional)</label>
+          <textarea id="observacao" th:field="*{observacao}" maxlength="255" rows="3"></textarea>
+          <button class="botao" type="submit">Registrar saída</button>
+        </form>
+      </section>
+      <section class="bloco">
+        <h2>Histórico de saídas</h2>
+        <p th:if="${#lists.isEmpty(itens)}">Nenhuma movimentação registrada.</p>
+        <div class="tabela-container">
+          <table>
+            <thead><tr><th>Nº</th><th>Data</th><th>Produto</th><th>Quantidade</th><th>Motivo</th><th>Responsável</th><th>Observação</th></tr></thead>
+            <tbody>
+              <tr th:each="item : ${itens}">
+                <td th:text="${item.saida.id}"></td>
+                <td th:text="${#temporals.format(item.saida.dataSaida, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${item.produto.nome}"></td>
+                <td th:text="${item.quantidade}"></td>
+                <td th:text="${item.saida.motivo}"></td>
+
+                <td th:text="${item.saida.usuario.nome}"></td>
+                <td th:text="${item.saida.observacao}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="rodape"><p>Sistema de controle de estoque</p></footer>
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>
+

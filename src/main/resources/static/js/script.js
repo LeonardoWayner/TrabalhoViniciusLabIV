@@ -32,4 +32,3 @@ function configurarFiltroProdutos() {
     contador.textContent = `${encontrados} produto(s) encontrado(s)`;
   });
 }
-

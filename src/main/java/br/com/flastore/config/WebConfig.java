@@ -14,7 +14,8 @@ public class WebConfig implements WebMvcConfigurer {
             @Override
             public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
                 var session = request.getSession(false);
-                if (session != null && Boolean.TRUE.equals(session.getAttribute("logado"))) return true;
+                if (session != null && Boolean.TRUE.equals(session.getAttribute("logado"))
+                        && session.getAttribute("usuarioId") instanceof Long) return true;
                 response.sendRedirect(request.getContextPath() + "/login");
                 return false;
             }
