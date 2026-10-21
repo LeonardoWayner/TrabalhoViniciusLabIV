@@ -46,7 +46,7 @@ public class EstoqueService {
         Produto produto = produtos.buscarParaAtualizar(dados.getProdutoId()).orElse(null);
         Fornecedor fornecedor = fornecedores.findById(dados.getFornecedorId()).orElse(null);
         Usuario usuario = usuarios.findById(usuarioId).orElse(null);
-        if (produto == null) {
+        if (produto == null || produto.isExcluido()) {
             return "Produto não encontrado.";
         }
         if (fornecedor == null) {
@@ -81,7 +81,7 @@ public class EstoqueService {
     public String registrarSaida(SaidaForm dados, Long usuarioId) {
         Produto produto = produtos.buscarParaAtualizar(dados.getProdutoId()).orElse(null);
         Usuario usuario = usuarios.findById(usuarioId).orElse(null);
-        if (produto == null) {
+        if (produto == null || produto.isExcluido()) {
             return "Produto não encontrado.";
         }
         if (usuario == null || !usuario.getAtivo()) {

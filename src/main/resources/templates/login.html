@@ -12,13 +12,12 @@
         <h1>FlaStore Controle</h1>
         <p>Entre para acessar o sistema.</p>
 
-        <form id="loginSistemaForm" th:action="@{/login}" method="post" class="formulario compacto">
+        <form id="loginSistemaForm" th:action="@{/login}" method="post" class="formulario compacto" autocomplete="off" novalidate>
           <label for="emailLogin">E-mail</label>
           <input
             id="emailLogin"
             name="emailLogin"
             type="email"
-            placeholder="adm@teste.com"
             required
           />
 
@@ -27,7 +26,6 @@
             id="senhaLogin"
             name="senhaLogin"
             type="password"
-            placeholder="teste"
             required
           />
 

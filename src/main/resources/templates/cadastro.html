@@ -14,6 +14,7 @@
           <a th:href="@{/}">Início</a>
           <a th:href="@{/produtos}">Produtos</a>
           <a th:href="@{/produtos/novo}">Cadastro</a>
+          <a th:href="@{/fornecedores}">Fornecedores</a>
           <a th:href="@{/entradas}">Entradas</a>
           <a th:href="@{/saidas}">Saídas</a>
           <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
@@ -23,7 +24,6 @@
 
     <main class="container">
       <section class="titulo-pagina">
-        <p>Tela de cadastro</p>
         <h1>Cadastrar produto</h1>
         <span>Preencha os dados principais do item.</span>
       </section>
@@ -43,7 +43,7 @@
             <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}"></option>
           </select>
 
-          <label for="precoProduto">Preço</label>
+          <label for="precoProduto">Preço de venda</label>
           <input id="precoProduto" th:field="*{preco}" name="precoProduto" type="number" min="1" step="0.01" required />
 
           <label for="descricaoProduto">Descrição</label>

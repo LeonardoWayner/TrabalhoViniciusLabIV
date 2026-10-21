@@ -110,13 +110,6 @@ img {
   padding: 34px 0 22px;
 }
 
-.titulo-pagina p {
-  margin: 0 0 8px;
-  color: var(--vermelho);
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
 .titulo-pagina h1 {
   margin: 0 0 8px;
   font-size: 2rem;

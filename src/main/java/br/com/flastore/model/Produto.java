@@ -38,6 +38,9 @@ public class Produto {
     @Column(nullable = false)
     private Integer estoque = 0;
 
+    @Column(nullable = false)
+    private boolean excluido = false;
+
     @NotBlank(message = "Informe a descrição.")
     @Size(max = 2000, message = "A descrição deve ter até 2000 caracteres.")
     @Column(nullable = false, length = 2000)
@@ -56,6 +59,8 @@ public class Produto {
     public void setPreco(BigDecimal preco) { this.preco = preco; }
     public Integer getEstoque() { return estoque; }
     public void setEstoque(Integer estoque) { this.estoque = estoque; }
+    public boolean isExcluido() { return excluido; }
+    public void setExcluido(boolean excluido) { this.excluido = excluido; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao == null ? null : descricao.trim(); }
 

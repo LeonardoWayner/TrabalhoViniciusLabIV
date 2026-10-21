@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fornecedores | FlaStore Controle</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="container barra-topo">
+        <a class="marca" th:href="@{/}">FlaStore Controle</a>
+        <nav class="menu" aria-label="Menu principal">
+          <a th:href="@{/}">Início</a>
+          <a th:href="@{/produtos}">Produtos</a>
+          <a th:href="@{/produtos/novo}">Cadastro</a>
+          <a th:href="@{/fornecedores}">Fornecedores</a>
+          <a th:href="@{/entradas}">Entradas</a>
+          <a th:href="@{/saidas}">Saídas</a>
+          <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <section class="titulo-pagina">
+        <h1>Fornecedores</h1>
+        <span>Cadastre quem fornece os produtos da loja.</span>
+      </section>
+      <section class="bloco">
+        <h2>Cadastrar fornecedor</h2>
+        <p class="mensagem visivel" th:if="${mensagem}" th:text="${mensagem}" role="status"></p>
+        <form class="formulario" method="post" th:action="@{/fornecedores}" th:object="${fornecedor}" novalidate>
+          <div class="mensagem erro visivel" th:if="${#fields.hasErrors('*')}" role="alert">
+            <ul><li th:each="erro : ${#fields.errors('*')}" th:text="${erro}"></li></ul>
+          </div>
+          <label for="nome">Nome</label>
+          <input id="nome" type="text" th:field="*{nome}" maxlength="120" required th:errorclass="campo-erro" />
+          <label for="cnpj">CNPJ (opcional, somente 14 números)</label>
+          <input id="cnpj" type="text" th:field="*{cnpj}" maxlength="14" inputmode="numeric" th:errorclass="campo-erro" />
+          <label for="telefone">Telefone (opcional)</label>
+          <input id="telefone" type="tel" th:field="*{telefone}" maxlength="20" th:errorclass="campo-erro" />
+          <label for="email">E-mail (opcional)</label>
+          <input id="email" type="email" th:field="*{email}" maxlength="120" th:errorclass="campo-erro" />
+          <button class="botao" type="submit">Cadastrar fornecedor</button>
+        </form>
+      </section>
+      <section class="bloco">
+        <h2>Fornecedores cadastrados</h2>
+        <p th:if="${#lists.isEmpty(fornecedores)}">Nenhum fornecedor cadastrado.</p>
+        <div class="tabela-container">
+          <table>
+            <thead><tr><th>ID</th><th>Nome</th><th>CNPJ</th><th>Telefone</th><th>E-mail</th></tr></thead>
+            <tbody>
+              <tr th:each="item : ${fornecedores}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.nome}"></td>
+                <td th:text="${item.cnpj}"></td>
+                <td th:text="${item.telefone}"></td>
+                <td th:text="${item.email}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="rodape"><p>Sistema de controle de estoque</p></footer>
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

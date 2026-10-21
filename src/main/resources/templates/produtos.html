@@ -14,6 +14,7 @@
           <a th:href="@{/}">Início</a>
           <a th:href="@{/produtos}">Produtos</a>
           <a th:href="@{/produtos/novo}">Cadastro</a>
+          <a th:href="@{/fornecedores}">Fornecedores</a>
           <a th:href="@{/entradas}">Entradas</a>
           <a th:href="@{/saidas}">Saídas</a>
           <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
@@ -23,7 +24,6 @@
 
     <main class="container">
       <section class="titulo-pagina">
-        <p>Listagem principal</p>
         <h1>Produtos cadastrados</h1>
         <span id="contadorProdutos" th:text="|${#lists.size(produtos)} produto(s) encontrado(s)|">8 produtos encontrados</span>
       </section>
@@ -47,7 +47,7 @@
                 <th>Código</th>
                 <th>Produto</th>
                 <th>Categoria</th>
-                <th>Preço</th>
+                <th>Preço de venda</th>
                 <th>Estoque</th>
                 <th>Situação</th>
                 <th>Ação</th>

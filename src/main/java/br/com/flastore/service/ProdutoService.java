@@ -24,13 +24,13 @@ public class ProdutoService {
     }
 
     public List<Produto> listar() {
-        return produtos.findAll(Sort.by("id"));
+        return produtos.findByExcluidoFalse(Sort.by("id"));
     }
     public List<Categoria> listarCategorias() {
         return categorias.findAll(Sort.by("nome"));
     }
     public Produto buscar(Long id) {
-        return produtos.findById(id).orElse(null);
+        return produtos.findByIdAndExcluidoFalse(id).orElse(null);
     }
 
     public String validar(Produto produto) {
@@ -66,7 +66,7 @@ public class ProdutoService {
     @Transactional
     public String atualizar(Long id, Produto dados) {
         Produto existente = produtos.buscarParaAtualizar(id).orElse(null);
-        if (existente == null) {
+        if (existente == null || existente.isExcluido()) {
             return "Produto não encontrado.";
         }
         dados.setId(id);
@@ -90,13 +90,15 @@ public class ProdutoService {
     @Transactional
     public String excluir(Long id) {
         Produto produto = produtos.buscarParaAtualizar(id).orElse(null);
-        if (produto == null) {
+        if (produto == null || produto.isExcluido()) {
             return "Produto não encontrado.";
         }
         if (itensEntrada.existsByProdutoId(id) || itensSaida.existsByProdutoId(id)) {
-            return "Produto com movimentações não pode ser excluído, para preservar o histórico.";
+            produto.setExcluido(true);
+            produtos.save(produto);
+        } else {
+            produtos.deleteById(id);
         }
-        produtos.deleteById(id);
         return null;
     }
 }

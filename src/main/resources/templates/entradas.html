@@ -14,6 +14,7 @@
           <a th:href="@{/}">Início</a>
           <a th:href="@{/produtos}">Produtos</a>
           <a th:href="@{/produtos/novo}">Cadastro</a>
+          <a th:href="@{/fornecedores}">Fornecedores</a>
           <a th:href="@{/entradas}">Entradas</a>
           <a th:href="@{/saidas}">Saídas</a>
           <form th:action="@{/sair}" method="post"><button type="submit">Sair</button></form>
@@ -22,7 +23,6 @@
     </header>
     <main class="container">
       <section class="titulo-pagina">
-        <p>Controle de estoque</p>
         <h1>Entradas de estoque</h1>
         <span>Registre um produto por movimentação.</span>
       </section>
@@ -46,7 +46,8 @@
             <option value="">Selecione</option>
             <option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor.id}" th:text="${fornecedor.nome}"></option>
           </select>
-          <label for="custo">Custo unitário (R$)</label>
+          <a th:href="@{/fornecedores}">Cadastrar fornecedor</a>
+          <label for="custo">Custo de compra por unidade (R$)</label>
           <input id="custo" type="number" th:field="*{custoUnitario}" min="0" step="0.01" required />
           <label for="observacao">Observação (opcional)</label>
           <textarea id="observacao" th:field="*{observacao}" maxlength="255" rows="3"></textarea>
@@ -58,7 +59,7 @@
         <p th:if="${#lists.isEmpty(itens)}">Nenhuma movimentação registrada.</p>
         <div class="tabela-container">
           <table>
-            <thead><tr><th>Nº</th><th>Data</th><th>Produto</th><th>Quantidade</th><th>Fornecedor</th><th>Custo unitário (R$)</th><th>Responsável</th><th>Observação</th></tr></thead>
+            <thead><tr><th>Nº</th><th>Data</th><th>Produto</th><th>Quantidade</th><th>Fornecedor</th><th>Custo de compra por unidade (R$)</th><th>Responsável</th><th>Observação</th></tr></thead>
             <tbody>
               <tr th:each="item : ${itens}">
                 <td th:text="${item.entrada.id}"></td>
