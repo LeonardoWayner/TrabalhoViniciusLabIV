@@ -32,7 +32,9 @@ public class EstoqueController {
             BindingResult erros, Model model, HttpSession session, RedirectAttributes redirect) {
         if (!erros.hasErrors()) {
             String erro = estoque.registrarEntrada(dados, (Long) session.getAttribute("usuarioId"));
-            if (erro != null) erros.reject("negocio", erro);
+            if (erro != null) {
+                erros.reject("negocio", erro);
+            }
         }
         if (erros.hasErrors()) {
             carregarEntradas(model);
@@ -54,7 +56,9 @@ public class EstoqueController {
             BindingResult erros, Model model, HttpSession session, RedirectAttributes redirect) {
         if (!erros.hasErrors()) {
             String erro = estoque.registrarSaida(dados, (Long) session.getAttribute("usuarioId"));
-            if (erro != null) erros.reject("negocio", erro);
+            if (erro != null) {
+                erros.reject("negocio", erro);
+            }
         }
         if (erros.hasErrors()) {
             carregarSaidas(model);

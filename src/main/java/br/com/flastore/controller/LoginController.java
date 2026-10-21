@@ -12,20 +12,25 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
     private final UsuarioService usuarios;
 
-    public LoginController(UsuarioService usuarios) { this.usuarios = usuarios; }
+    public LoginController(UsuarioService usuarios) {
+        this.usuarios = usuarios;
+    }
 
     @GetMapping("/login")
     public String login(HttpSession session) {
-        return Boolean.TRUE.equals(session.getAttribute("logado")) ? "redirect:/" : "login";
+        if (Boolean.TRUE.equals(session.getAttribute("logado"))) {
+            return "redirect:/";
+        }
+        return "login";
     }
     @PostMapping("/login")
     public String entrar(@RequestParam String emailLogin, @RequestParam String senhaLogin, HttpServletRequest request, Model model) {
         Usuario usuario = usuarios.autenticar(emailLogin, senhaLogin);
         if (usuario != null) {
-            request.getSession();
+            HttpSession session = request.getSession();
             request.changeSessionId();
-            request.getSession().setAttribute("logado", true);
-            request.getSession().setAttribute("usuarioId", usuario.getId());
+            session.setAttribute("logado", true);
+            session.setAttribute("usuarioId", usuario.getId());
             return "redirect:/";
         }
         model.addAttribute("erro", "E-mail ou senha incorretos.");

@@ -2,6 +2,8 @@ package br.com.flastore.controller;
 
 import br.com.flastore.model.Produto;
 import br.com.flastore.service.ProdutoService;
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ProdutoController {
     private final ProdutoService produtos;
-    public ProdutoController(ProdutoService produtos) { this.produtos = produtos; }
+    public ProdutoController(ProdutoService produtos) {
+        this.produtos = produtos;
+    }
 
     @InitBinder("produto")
     public void limitarCampos(WebDataBinder binder) {
@@ -22,12 +26,23 @@ public class ProdutoController {
 
     @GetMapping("/")
     public String inicio(Model model) {
-        var lista = produtos.listar();
-        var esgotados = lista.stream().filter(p -> p.getEstoque() == 0).toList();
+        List<Produto> lista = produtos.listar();
+        List<String> nomesEsgotados = new ArrayList<>();
+        for (Produto produto : lista) {
+            if (produto.getEstoque() == 0) {
+                nomesEsgotados.add(produto.getNome());
+            }
+        }
+
+        String mensagem = "Nenhum produto está esgotado.";
+        if (!nomesEsgotados.isEmpty()) {
+            mensagem = String.join(", ", nomesEsgotados) + ".";
+        }
+
         model.addAttribute("totalProdutos", lista.size());
-        model.addAttribute("totalDisponiveis", lista.size() - esgotados.size());
-        model.addAttribute("totalEsgotados", esgotados.size());
-        model.addAttribute("listaEsgotados", esgotados.isEmpty() ? "Nenhum produto está esgotado." : String.join(", ", esgotados.stream().map(Produto::getNome).toList()) + ".");
+        model.addAttribute("totalDisponiveis", lista.size() - nomesEsgotados.size());
+        model.addAttribute("totalEsgotados", nomesEsgotados.size());
+        model.addAttribute("listaEsgotados", mensagem);
         return "index";
     }
 
@@ -50,7 +65,9 @@ public class ProdutoController {
         produto.setId(null);
         if (!erros.hasErrors()) {
             String erro = produtos.cadastrar(produto);
-            if (erro != null) erros.reject("negocio", erro);
+            if (erro != null) {
+                erros.reject("negocio", erro);
+            }
         }
         if (erros.hasErrors()) {
             model.addAttribute("categorias", produtos.listarCategorias());
@@ -63,7 +80,9 @@ public class ProdutoController {
     @GetMapping("/produtos/{id}")
     public String detalhes(@PathVariable Long id, Model model, RedirectAttributes redirect) {
         Produto produto = produtos.buscar(id);
-        if (produto == null) return naoEncontrado(redirect);
+        if (produto == null) {
+            return naoEncontrado(redirect);
+        }
         model.addAttribute("produto", produto);
         model.addAttribute("categorias", produtos.listarCategorias());
         return "detalhes";
@@ -73,12 +92,16 @@ public class ProdutoController {
     public String atualizar(@PathVariable Long id, @Valid @ModelAttribute("produto") Produto produto,
             BindingResult erros, Model model, RedirectAttributes redirect) {
         Produto atual = produtos.buscar(id);
-        if (atual == null) return naoEncontrado(redirect);
+        if (atual == null) {
+            return naoEncontrado(redirect);
+        }
         produto.setId(id);
         produto.setEstoque(atual.getEstoque());
         if (!erros.hasErrors()) {
             String erro = produtos.atualizar(id, produto);
-            if (erro != null) erros.reject("negocio", erro);
+            if (erro != null) {
+                erros.reject("negocio", erro);
+            }
         }
         if (erros.hasErrors()) {
             model.addAttribute("categorias", produtos.listarCategorias());
@@ -91,8 +114,11 @@ public class ProdutoController {
     @PostMapping("/produtos/{id}/excluir")
     public String excluir(@PathVariable Long id, RedirectAttributes redirect) {
         String erro = produtos.excluir(id);
-        redirect.addFlashAttribute(erro == null ? "mensagem" : "erro",
-                erro == null ? "Produto excluído com sucesso." : erro);
+        if (erro == null) {
+            redirect.addFlashAttribute("mensagem", "Produto excluído com sucesso.");
+        } else {
+            redirect.addFlashAttribute("erro", erro);
+        }
         return "redirect:/produtos";
     }
 

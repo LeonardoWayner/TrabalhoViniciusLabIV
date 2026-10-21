@@ -1,7 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".menu a").forEach(link => {
-    if (new URL(link.href).pathname === location.pathname) link.classList.add("ativo");
-  });
+document.addEventListener("DOMContentLoaded", function () {
+  const links = document.querySelectorAll(".menu a");
+  for (const link of links) {
+    if (link.pathname === location.pathname) {
+      link.classList.add("ativo");
+    }
+  }
   configurarFiltroProdutos();
 });
 
@@ -14,12 +17,12 @@ function configurarFiltroProdutos() {
     return;
   }
 
-  filtro.addEventListener("input", () => {
-    const linhas = Array.from(tabela.querySelectorAll("tbody tr"));
+  filtro.addEventListener("input", function () {
+    const linhas = tabela.querySelectorAll("tbody tr");
     const busca = filtro.value.trim().toLowerCase();
     let encontrados = 0;
 
-    linhas.forEach((linha) => {
+    for (const linha of linhas) {
       const texto = linha.textContent.toLowerCase();
       const deveMostrar = texto.includes(busca);
 
@@ -27,7 +30,7 @@ function configurarFiltroProdutos() {
       if (deveMostrar) {
         encontrados += 1;
       }
-    });
+    }
 
     contador.textContent = `${encontrados} produto(s) encontrado(s)`;
   });

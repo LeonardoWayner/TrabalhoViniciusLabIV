@@ -31,19 +31,33 @@ public class EstoqueService {
         this.itensSaida = itensSaida;
     }
 
-    public List<Fornecedor> listarFornecedores() { return fornecedores.findAll(Sort.by("nome")); }
-    public List<ItemEntrada> listarEntradas() { return itensEntrada.findAll(Sort.by(Sort.Direction.DESC, "id")); }
-    public List<ItemSaida> listarSaidas() { return itensSaida.findAll(Sort.by(Sort.Direction.DESC, "id")); }
+    public List<Fornecedor> listarFornecedores() {
+        return fornecedores.findAll(Sort.by("nome"));
+    }
+    public List<ItemEntrada> listarEntradas() {
+        return itensEntrada.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    }
+    public List<ItemSaida> listarSaidas() {
+        return itensSaida.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    }
 
     @Transactional
     public String registrarEntrada(EntradaForm dados, Long usuarioId) {
         Produto produto = produtos.buscarParaAtualizar(dados.getProdutoId()).orElse(null);
         Fornecedor fornecedor = fornecedores.findById(dados.getFornecedorId()).orElse(null);
         Usuario usuario = usuarios.findById(usuarioId).orElse(null);
-        if (produto == null) return "Produto não encontrado.";
-        if (fornecedor == null) return "Fornecedor não encontrado.";
-        if (usuario == null || !usuario.getAtivo()) return "Usuário não autorizado.";
-        if (dados.getQuantidade() > Integer.MAX_VALUE - produto.getEstoque()) return "Quantidade excede o limite de estoque.";
+        if (produto == null) {
+            return "Produto não encontrado.";
+        }
+        if (fornecedor == null) {
+            return "Fornecedor não encontrado.";
+        }
+        if (usuario == null || !usuario.getAtivo()) {
+            return "Usuário não autorizado.";
+        }
+        if (dados.getQuantidade() > Integer.MAX_VALUE - produto.getEstoque()) {
+            return "Quantidade excede o limite de estoque.";
+        }
 
         Entrada entrada = new Entrada();
         entrada.setFornecedor(fornecedor);
@@ -67,9 +81,15 @@ public class EstoqueService {
     public String registrarSaida(SaidaForm dados, Long usuarioId) {
         Produto produto = produtos.buscarParaAtualizar(dados.getProdutoId()).orElse(null);
         Usuario usuario = usuarios.findById(usuarioId).orElse(null);
-        if (produto == null) return "Produto não encontrado.";
-        if (usuario == null || !usuario.getAtivo()) return "Usuário não autorizado.";
-        if (dados.getQuantidade() > produto.getEstoque()) return "Estoque insuficiente para essa saída.";
+        if (produto == null) {
+            return "Produto não encontrado.";
+        }
+        if (usuario == null || !usuario.getAtivo()) {
+            return "Usuário não autorizado.";
+        }
+        if (dados.getQuantidade() > produto.getEstoque()) {
+            return "Estoque insuficiente para essa saída.";
+        }
 
         Saida saida = new Saida();
         saida.setUsuario(usuario);

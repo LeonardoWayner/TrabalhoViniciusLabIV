@@ -23,15 +23,26 @@ public class ProdutoService {
         this.itensSaida = itensSaida;
     }
 
-    public List<Produto> listar() { return produtos.findAll(Sort.by("id")); }
-    public List<Categoria> listarCategorias() { return categorias.findAll(Sort.by("nome")); }
-    public Produto buscar(Long id) { return produtos.findById(id).orElse(null); }
+    public List<Produto> listar() {
+        return produtos.findAll(Sort.by("id"));
+    }
+    public List<Categoria> listarCategorias() {
+        return categorias.findAll(Sort.by("nome"));
+    }
+    public Produto buscar(Long id) {
+        return produtos.findById(id).orElse(null);
+    }
 
     public String validar(Produto produto) {
-        boolean codigoDuplicado = produto.getId() == null
-                ? produtos.existsByCodigo(produto.getCodigo())
-                : produtos.existsByCodigoAndIdNot(produto.getCodigo(), produto.getId());
-        if (codigoDuplicado) return "Já existe um produto com esse código.";
+        boolean codigoDuplicado;
+        if (produto.getId() == null) {
+            codigoDuplicado = produtos.existsByCodigo(produto.getCodigo());
+        } else {
+            codigoDuplicado = produtos.existsByCodigoAndIdNot(produto.getCodigo(), produto.getId());
+        }
+        if (codigoDuplicado) {
+            return "Já existe um produto com esse código.";
+        }
         if (produto.getCategoria() == null || produto.getCategoria().getId() == null
                 || !categorias.existsById(produto.getCategoria().getId())) {
             return "Selecione uma categoria existente.";
@@ -42,7 +53,9 @@ public class ProdutoService {
     @Transactional
     public String cadastrar(Produto dados) {
         String erro = validar(dados);
-        if (erro != null) return erro;
+        if (erro != null) {
+            return erro;
+        }
         Produto novo = new Produto();
         copiarCadastro(dados, novo);
         novo.setEstoque(0);
@@ -53,10 +66,14 @@ public class ProdutoService {
     @Transactional
     public String atualizar(Long id, Produto dados) {
         Produto existente = produtos.buscarParaAtualizar(id).orElse(null);
-        if (existente == null) return "Produto não encontrado.";
+        if (existente == null) {
+            return "Produto não encontrado.";
+        }
         dados.setId(id);
         String erro = validar(dados);
-        if (erro != null) return erro;
+        if (erro != null) {
+            return erro;
+        }
         copiarCadastro(dados, existente);
         produtos.save(existente);
         return null;
@@ -73,7 +90,9 @@ public class ProdutoService {
     @Transactional
     public String excluir(Long id) {
         Produto produto = produtos.buscarParaAtualizar(id).orElse(null);
-        if (produto == null) return "Produto não encontrado.";
+        if (produto == null) {
+            return "Produto não encontrado.";
+        }
         if (itensEntrada.existsByProdutoId(id) || itensSaida.existsByProdutoId(id)) {
             return "Produto com movimentações não pode ser excluído, para preservar o histórico.";
         }
